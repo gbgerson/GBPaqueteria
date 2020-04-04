@@ -13,6 +13,8 @@
         android:orientation="vertical">
         <Button
             android:id="@+id/button"
+            android:background="@drawable/shape"
+            android:textColor="#CD5C5C"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
@@ -123,6 +125,8 @@
             android:layout_centerHorizontal="true" />
         <Button
             android:id="@+id/btnEnviar"
+            android:background="@drawable/shape"
+            android:textColor="#CD5C5C"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
