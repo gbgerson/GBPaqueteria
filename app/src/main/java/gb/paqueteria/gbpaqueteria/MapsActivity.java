@@ -10,10 +10,22 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private DatabaseReference mDatabase;
+    private ArrayList<Marker> tmpRealTimeMarkers = new ArrayList<>();
+    private ArrayList<Marker> realTimeMarkers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +35,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        //creasmo una instancia   con el nombre mDatabase
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
 
@@ -38,10 +52,73 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // punto donde esta ubicadad la clinica
+        LatLng jalapa = new LatLng(14.4971784, -90.0672485);
+        // pasamos la posicion  que este caso la tenemos guardad en el objeto jalapa y le damos un titulo
+        mMap.addMarker(new MarkerOptions().position(jalapa).title("Tienda KEDATEENCASA"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(jalapa));
+        // le decimo que la posicion de la camara se mueva al objeto jalapa
+        CameraPosition camera =  new CameraPosition.Builder()
+                .target(jalapa)
+                .zoom(18)
+                .bearing(90)
+                .tilt(45)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+        // usamo la referencia mDatabase y le decimos de que hijo queremos traer informacion
+        // para este caso serra destinos
+        mDatabase.child("destinos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                for (Marker marker:realTimeMarkers)
+                {
+                    // este for nos servira para remover los marcadores que se allan borrado en tiempo real
+                    marker.remove();
+
+                }
+
+                // este for  rellena el mapa pero antes usa la clase donde tenemos lo setter y getter
+                // de esta manera llnamos el mapa
+                for (DataSnapshot snapshot: dataSnapshot.getChildren())
+                {
+                    MapsPojo mp = snapshot.getValue(MapsPojo.class);
+                    Double latitud  = mp.getLatitud();
+                    Double longitud = mp.getLongitud();
+                    String titulo = mp.getCodigo();
+                    String telefono = mp.getTelefono();
+                    // es esta parte le ponemos los datos que queremos que se  muestren
+                    // an tocar el marker lurho lod llamaremos en el markerOptions
+                    String paquete = "No.Paquete "+ titulo;
+                    String telefono1 = "No. Tel: " + telefono;
+
+
+
+
+                    // creamos una instancia de markeroptions
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    /// aqui es donde cargamos los datos que queremos pasarle en este caso el titutlo y el telefono
+                    markerOptions.position(new LatLng(latitud,longitud)).title(paquete).snippet(telefono1);
+
+
+                    tmpRealTimeMarkers.add(mMap.addMarker(markerOptions));
+
+                }
+
+                realTimeMarkers.clear();
+                realTimeMarkers.addAll(tmpRealTimeMarkers);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 }
