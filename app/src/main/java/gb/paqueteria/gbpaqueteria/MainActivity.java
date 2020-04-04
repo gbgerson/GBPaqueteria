@@ -1,5 +1,6 @@
 package gb.paqueteria.gbpaqueteria;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.txt_layout);
         circleMenu = (CircleMenu) findViewById(R.id.circle_menu);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         circleMenu.setMainMenu(Color.parseColor("#FA8258"), R.drawable.menu, R.drawable.cancelar)
-                .addSubMenu(Color.parseColor("#258CFF"), R.drawable.repartidor)
+                .addSubMenu(Color.parseColor("#258CFF"), R.drawable.repartir)
                 .addSubMenu(Color.parseColor("#30A400"), R.drawable.pedidos)
                 .addSubMenu(Color.parseColor("#FF4B32"), R.drawable.informacion)
                 .addSubMenu(Color.parseColor("#8A39FF"), R.drawable.ofertas)
