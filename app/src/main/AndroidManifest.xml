@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".repartidor.LoginActivity"></activity>
+        <activity android:name=".repartidor.EntregadasActivity"></activity>
+        <activity android:name=".repartidor.Menurepartidorctivity" />
+        <activity android:name=".repartidor.LoginActivity" />
         <activity android:name=".ofertas.OfertasActivity" />
         <activity android:name=".informacion.InformacionActivity" />
         <!--
