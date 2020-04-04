@@ -1,4 +1,4 @@
-package gb.paqueteria.gbpaqueteria;
+package gb.paqueteria.gbpaqueteria.cliente;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import gb.paqueteria.gbpaqueteria.menu.MainActivity;
+import gb.paqueteria.gbpaqueteria.R;
 
 public class RegistroActivity extends AppCompatActivity {
     Button btnGPS, btnGuardar;

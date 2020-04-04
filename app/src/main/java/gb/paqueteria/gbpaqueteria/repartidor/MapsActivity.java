@@ -1,6 +1,5 @@
-package gb.paqueteria.gbpaqueteria;
+package gb.paqueteria.gbpaqueteria.repartidor;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
@@ -20,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import gb.paqueteria.gbpaqueteria.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

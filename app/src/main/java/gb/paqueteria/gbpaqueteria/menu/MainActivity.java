@@ -1,4 +1,4 @@
-package gb.paqueteria.gbpaqueteria;
+package gb.paqueteria.gbpaqueteria.menu;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -16,6 +16,12 @@ import android.os.Handler;
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
+
+import gb.paqueteria.gbpaqueteria.R;
+import gb.paqueteria.gbpaqueteria.cliente.RegistroActivity;
+import gb.paqueteria.gbpaqueteria.informacion.InformacionActivity;
+import gb.paqueteria.gbpaqueteria.ofertas.OfertasActivity;
+import gb.paqueteria.gbpaqueteria.repartidor.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
     CircleMenu circleMenu;
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                 }
                             },600);
@@ -60,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this,RegistroActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
                                     startActivity(intent);
                                 }
                             },600);
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this,InformacionActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, InformacionActivity.class);
                                     startActivity(intent);
                                 }
                             },600);
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(MainActivity.this,OfertasActivity.class);
+                                    Intent intent = new Intent(MainActivity.this, OfertasActivity.class);
                                     startActivity(intent);
                                 }
                             },600);

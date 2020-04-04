@@ -1,4 +1,4 @@
-package gb.paqueteria.gbpaqueteria;
+package gb.paqueteria.gbpaqueteria.cliente;
 
 public class Destinos {
 

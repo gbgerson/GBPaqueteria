@@ -1,4 +1,4 @@
-package gb.paqueteria.gbpaqueteria;
+package gb.paqueteria.gbpaqueteria.repartidor;
 
 public class MapsPojo {
     // creamos una clase con variables privadas o usando el encapsulamiento
