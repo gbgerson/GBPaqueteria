@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Cordenadas"
+            android:hint="Cordenadas"
             android:textAlignment="center"
             android:focusable="false"
             android:layout_marginTop="10dp"
@@ -47,7 +47,7 @@
             android:ems="10"
             android:textAlignment="center"
             android:inputType="textPersonName"
-            android:text="Cordenadas"
+            android:hint="Cordenadas"
             android:focusable="false"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />

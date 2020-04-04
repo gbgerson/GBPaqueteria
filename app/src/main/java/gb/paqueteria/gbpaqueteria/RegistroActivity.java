@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,16 +58,29 @@ public class RegistroActivity extends AppCompatActivity {
                 String billete  = edtbillete.getText().toString();
                 String telefono = edttelefono.getText().toString();
 
-                Destinos destinos1 = new Destinos(Double.valueOf(latitud),Double.valueOf(longitud),codigo,
-                        billete,telefono);
+                if (TextUtils.isEmpty(latitud)){
+                    Toast.makeText(getApplicationContext(),"Genere de nuevo su ubicación", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(codigo))
+                {
+                    Toast.makeText(getApplicationContext(),"Ingrese un Codigo", Toast.LENGTH_SHORT).show();
+                }
+                else if(TextUtils.isEmpty(billete))
+                {
+                    Toast.makeText(getApplicationContext(),"Ingrese el valor del billete", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(telefono))
+                {
+                    Toast.makeText(getApplicationContext(),"Ingrese su numero de Telefono", Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    Destinos destinos1 = new Destinos(Double.valueOf(latitud),Double.valueOf(longitud),codigo,
+                            billete,telefono);
 
-                databaseReference.child("destinos").child(codigo).setValue(destinos1);
-                Toast.makeText(getApplicationContext(),"Eviado Correctamente", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegistroActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-
-
+                    databaseReference.child("destinos").child(codigo).setValue(destinos1);
+                    Toast.makeText(getApplicationContext(),"Eviado Correctamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegistroActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
