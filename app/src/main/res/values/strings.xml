@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GB Paqueteria</string>
+    <string name="title_activity_repartidor">Map</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
