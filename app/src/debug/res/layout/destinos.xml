@@ -2,24 +2,39 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cardView"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
-    <LinearLayout
+    android:layout_height="40dp"
+    android:layout_margin="10dp">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="10dp">
         <TextView
             android:id="@+id/codigo"
+            android:gravity="right"
             android:text="Codigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"/>
+            android:layout_marginRight="70dp"/>
+
         <TextView
             android:id="@+id/telefono"
-            android:text="Telefono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:layout_toEndOf="@+id/codigo"
+            android:layout_toRightOf="@+id/codigo"
+            android:text="Telefono" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/trash"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="141dp"
+            android:layout_marginLeft="141dp"
+            android:layout_toEndOf="@+id/codigo"
+            android:layout_toRightOf="@+id/codigo"
+            android:src="@drawable/trash" />
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

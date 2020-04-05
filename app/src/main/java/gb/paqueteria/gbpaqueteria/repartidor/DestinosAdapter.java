@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,9 +46,10 @@ public class DestinosAdapter extends RecyclerView.Adapter<DestinosAdapter.ViewHo
         return destinos.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         TextView codigo, telefono;
+        ImageView trash;
 
         // esta clase es para pasar los datos a la vista
         public ViewHolder(View view)
@@ -56,6 +58,7 @@ public class DestinosAdapter extends RecyclerView.Adapter<DestinosAdapter.ViewHo
             cardView = (CardView) view.findViewById(R.id.cardView);
             codigo = (TextView) view.findViewById(R.id.codigo);
             telefono = (TextView) view.findViewById(R.id.telefono);
+            trash =(ImageView)view.findViewById(R.id.trash);
 
         }
 
