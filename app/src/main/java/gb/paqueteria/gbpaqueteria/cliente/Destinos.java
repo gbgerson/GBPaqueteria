@@ -18,4 +18,8 @@ public class Destinos {
         this.billete = billete;
         this.telefono = telefono;
     }
+    public Destinos(String codigo, String telefono) {
+        this.codigo = codigo;
+        this.telefono = telefono;
+    }
 }
