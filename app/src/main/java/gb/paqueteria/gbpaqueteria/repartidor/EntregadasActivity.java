@@ -16,6 +16,7 @@ import gb.paqueteria.gbpaqueteria.cliente.Destinos;
 public class EntregadasActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Destinos> destinosList;
+    DestinosAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,9 @@ public class EntregadasActivity extends AppCompatActivity {
         // Definimos la orientacion del linearlayout
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        // enviar datos a la vista usando el adapatador
+        adapter = new DestinosAdapter(this, destinosList);
+        recyclerView.setAdapter(adapter);
 
     }
     //ejemplificando
