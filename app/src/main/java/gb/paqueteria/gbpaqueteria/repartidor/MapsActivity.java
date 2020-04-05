@@ -102,7 +102,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // creamos una instancia de markeroptions
                     MarkerOptions markerOptions = new MarkerOptions();
                     /// aqui es donde cargamos los datos que queremos pasarle en este caso el titutlo y el telefono
-                    markerOptions.position(new LatLng(latitud,longitud)).title(paquete).snippet(telefono1).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_comercio)).anchor(0.0f, 0.0f);
+                    //setimagen para agregar un getResource .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_cliente)).anchor(0.0f, 0.0f);
+                    markerOptions.position(new LatLng(latitud,longitud)).title(paquete).snippet(telefono1).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_cliente)).anchor(0.0f, 0.0f);
 
 
                     tmpRealTimeMarkers.add(mMap.addMarker(markerOptions));
