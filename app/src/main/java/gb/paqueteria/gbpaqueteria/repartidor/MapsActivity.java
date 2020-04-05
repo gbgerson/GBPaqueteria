@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -57,7 +58,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // punto donde esta ubicadad la clinica
         LatLng jalapa = new LatLng(14.4971784, -90.0672485);
         // pasamos la posicion  que este caso la tenemos guardad en el objeto jalapa y le damos un titulo
-        mMap.addMarker(new MarkerOptions().position(jalapa).title("Tienda KEDATEENCASA"));
+       // mMap.addMarker(new MarkerOptions().position(jalapa).title("Tienda KEDATEENCASA").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.addMarker(new MarkerOptions().position(jalapa).title("Tienda").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_comercio)).anchor(0.0f, 0.0f));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(jalapa));
         // le decimo que la posicion de la camara se mueva al objeto jalapa
         CameraPosition camera =  new CameraPosition.Builder()
@@ -100,7 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     // creamos una instancia de markeroptions
                     MarkerOptions markerOptions = new MarkerOptions();
                     /// aqui es donde cargamos los datos que queremos pasarle en este caso el titutlo y el telefono
-                    markerOptions.position(new LatLng(latitud,longitud)).title(paquete).snippet(telefono1);
+                    markerOptions.position(new LatLng(latitud,longitud)).title(paquete).snippet(telefono1).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_comercio)).anchor(0.0f, 0.0f);
 
 
                     tmpRealTimeMarkers.add(mMap.addMarker(markerOptions));
