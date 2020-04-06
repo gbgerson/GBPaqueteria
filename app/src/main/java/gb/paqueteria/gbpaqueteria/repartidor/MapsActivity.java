@@ -1,7 +1,14 @@
 package gb.paqueteria.gbpaqueteria.repartidor;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.Context;
+import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,12 +30,18 @@ import java.util.ArrayList;
 
 import gb.paqueteria.gbpaqueteria.R;
 
+import static java.security.AccessController.getContext;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private DatabaseReference mDatabase;
     private ArrayList<Marker> tmpRealTimeMarkers = new ArrayList<>();
     private ArrayList<Marker> realTimeMarkers = new ArrayList<>();
+    //variables para la ubiacion del dispositivo
+    private LocationManager locationManager;
+    private Location currentLocation;
+    //fin de las variables
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +82,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .tilt(45)
                 .build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera));
+        //Codigo para mostrar la ubicacion actual del dispostivo
+        //locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        LocationManager locationManager = (LocationManager) MapsActivity.this.getSystemService(Context.LOCATION_SERVICE);
+
+        // Define a listener that responds to location updates
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                //makeUseOfNewLocation(location);
+                //tvUbicacion.setText(" " + location.getLatitude() + " " + location.getLongitude());
+                LatLng Milocalizacion = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(Milocalizacion).title("REPARTIDOR").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_repartidor)).anchor(0.0f, 0.0f));
+
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            public void onProviderEnabled(String provider) {}
+
+            public void onProviderDisabled(String provider) {}
+        };
+        int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        // Register the listener with the Location Manager to receive location updates
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        //fin de codigo ubicacion actual del dispostivo
+        //////
+        ////
+
         // usamo la referencia mDatabase y le decimos de que hijo queremos traer informacion
         // para este caso serra destinos
         mDatabase.child("destinos").addValueEventListener(new ValueEventListener() {
