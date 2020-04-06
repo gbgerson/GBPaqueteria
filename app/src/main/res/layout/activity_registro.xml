@@ -13,7 +13,7 @@
         android:orientation="vertical">
         <Button
             android:id="@+id/button"
-            android:background="@drawable/shape"
+            android:background="@drawable/shapeclaro"
             android:textColor="#CD5C5C"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
@@ -22,13 +22,14 @@
             android:layout_below="@+id/tvUbicacion"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="Encienda su GPS y Presione Aqui" />
+            android:text="Generar Ubicación" />
 
         <EditText
             android:id="@+id/txvLat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:visibility="invisible"
             android:inputType="textPersonName"
             android:hint="Cordenadas"
             android:textAlignment="center"
@@ -39,6 +40,7 @@
 
         <EditText
             android:id="@+id/txvLog"
+            android:visibility="invisible"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"

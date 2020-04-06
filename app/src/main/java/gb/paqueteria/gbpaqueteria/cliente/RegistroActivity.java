@@ -62,7 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
                 String telefono = edttelefono.getText().toString();
 
                 if (TextUtils.isEmpty(latitud)){
-                    Toast.makeText(getApplicationContext(),"Genere de nuevo su ubicación", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Por Favor pulse el boton de Generar Ubicación", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(codigo))
                 {
                     Toast.makeText(getApplicationContext(),"Ingrese un Codigo", Toast.LENGTH_SHORT).show();
