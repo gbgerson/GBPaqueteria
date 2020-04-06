@@ -73,7 +73,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:textAlignment="center"
-            android:inputType="textPersonName"
+            android:inputType="number"
+            android:maxLength="5"
             android:text=""
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
@@ -97,7 +98,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:textAlignment="center"
-            android:inputType="textPersonName"
+            android:inputType="number"
+            android:maxLength="3"
             android:text=""
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
@@ -121,7 +123,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:textAlignment="center"
-            android:inputType="textPersonName"
+            android:inputType="phone"
+            android:maxLength="8"
             android:text=""
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
