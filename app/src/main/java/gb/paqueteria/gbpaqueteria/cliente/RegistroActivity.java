@@ -55,24 +55,24 @@ public class RegistroActivity extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String latitud  = edtLat.getText().toString();
-                String longitud = edtLong.getText().toString();
-                String codigo   = edtcodigo.getText().toString();
-                String billete  = edtbillete.getText().toString();
-                String telefono = edttelefono.getText().toString();
+                String latitud  = edtLat.getText().toString().trim();
+                String longitud = edtLong.getText().toString().trim();
+                String codigo   = edtcodigo.getText().toString().trim();
+                String billete  = edtbillete.getText().toString().trim();
+                String telefono = edttelefono.getText().toString().trim();
 
                 if (TextUtils.isEmpty(latitud)){
-                    Toast.makeText(getApplicationContext(),"Por Favor pulse el boton de Generar Ubicación", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Por favor pulse el botón de Generar Ubicación", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(codigo))
                 {
-                    Toast.makeText(getApplicationContext(),"Ingrese un Codigo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ingrese un Código de pedido", Toast.LENGTH_SHORT).show();
                 }
                 else if(TextUtils.isEmpty(billete))
                 {
-                    Toast.makeText(getApplicationContext(),"Ingrese el valor del billete", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ingrese el valor del billete con el que pagará", Toast.LENGTH_SHORT).show();
                 }else if(TextUtils.isEmpty(telefono))
                 {
-                    Toast.makeText(getApplicationContext(),"Ingrese su numero de Telefono", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ingrese su número de Teléfono", Toast.LENGTH_SHORT).show();
                 }else
                 {
                     Destinos destinos1 = new Destinos(Double.valueOf(latitud),Double.valueOf(longitud),codigo,
