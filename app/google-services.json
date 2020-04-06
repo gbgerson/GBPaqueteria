@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "728373841701",
+    "firebase_url": "https://gbpaqueteria.firebaseio.com",
+    "project_id": "gbpaqueteria",
+    "storage_bucket": "gbpaqueteria.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728373841701:android:47faee9f16b489de9854cc",
+        "android_client_info": {
+          "package_name": "gb.paqueteria.gbpaqueteria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728373841701-58or8cpq1n70n8rhviqitnat4epbfoi4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gb.paqueteria.gbpaqueteria",
+            "certificate_hash": "f6b8df01bab0b236b5e5298ad3de9df0b2e93a6b"
+          }
+        },
+        {
+          "client_id": "728373841701-vnecnt7vd9vdeuhus9lbnh0i5bnmtes6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbe7Qej3nxHvMCZdEauP01xQHrQIXDTlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728373841701-vnecnt7vd9vdeuhus9lbnh0i5bnmtes6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
