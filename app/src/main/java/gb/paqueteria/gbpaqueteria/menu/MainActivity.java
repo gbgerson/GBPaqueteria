@@ -18,6 +18,7 @@ import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 
 import gb.paqueteria.gbpaqueteria.R;
+import gb.paqueteria.gbpaqueteria.admin.LoginAdminActivity;
 import gb.paqueteria.gbpaqueteria.cliente.RegistroActivity;
 import gb.paqueteria.gbpaqueteria.informacion.InformacionActivity;
 import gb.paqueteria.gbpaqueteria.ofertas.OfertasActivity;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 .addSubMenu(Color.parseColor("#30A400"), R.drawable.pedidos)
                 .addSubMenu(Color.parseColor("#FF4B32"), R.drawable.informacion)
                 .addSubMenu(Color.parseColor("#8A39FF"), R.drawable.ofertas)
+                .addSubMenu(Color.parseColor("#FFFF00"), R.drawable.admin)
                 .setOnMenuSelectedListener(new OnMenuSelectedListener() {
 
                     @Override
@@ -87,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(MainActivity.this, OfertasActivity.class);
+                                    startActivity(intent);
+                                }
+                            },600);
+
+                        }
+                        if (index==4){
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(MainActivity.this, LoginAdminActivity.class);
                                     startActivity(intent);
                                 }
                             },600);
