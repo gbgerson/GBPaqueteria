@@ -4,14 +4,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.hitomi.cmlibrary.CircleMenu;
 import com.hitomi.cmlibrary.OnMenuSelectedListener;
@@ -37,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.txt_layout);
         circleMenu = (CircleMenu) findViewById(R.id.circle_menu);
+        //preguntamos por la conexion de internet y validamos con un if
 
+        getConexionIntenet();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             AlertNoGps();
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 .addSubMenu(Color.parseColor("#30A400"), R.drawable.pedidos)
                 .addSubMenu(Color.parseColor("#FF4B32"), R.drawable.informacion)
                 .addSubMenu(Color.parseColor("#8A39FF"), R.drawable.ofertas)
-                .addSubMenu(Color.parseColor("#FFFF00"), R.drawable.admin)
+                .addSubMenu(Color.parseColor("#56F9AF"), R.drawable.admin)
                 .setOnMenuSelectedListener(new OnMenuSelectedListener() {
 
                     @Override
@@ -120,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void AlertNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Por favor Encienda la Ubicación del Telefono. ¿Desea activarlo?")
@@ -144,5 +153,20 @@ public class MainActivity extends AppCompatActivity {
         {
             alert.dismiss ();
         }
+    }
+
+    //metodo para preguntar por la conexiona de internet
+    private void getConexionIntenet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        //sino existiera la conexion a internet cerramos la aplicacion
+        if (networkInfo == null ) {
+            //Toast.makeText(MainActivity.this, "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT).show();
+            Toast toast2 = Toast.makeText(getApplicationContext(), "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT);
+            toast2.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+            toast2.show();
+            finish();
+        };
+
     }
 }
