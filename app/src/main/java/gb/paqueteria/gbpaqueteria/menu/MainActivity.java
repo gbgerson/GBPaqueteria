@@ -162,9 +162,10 @@ public class MainActivity extends AppCompatActivity {
         //sino existiera la conexion a internet cerramos la aplicacion
         if (networkInfo == null ) {
             //Toast.makeText(MainActivity.this, "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT).show();
-            Toast toast2 = Toast.makeText(getApplicationContext(), "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT);
-            toast2.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-            toast2.show();
+            Toast mensaje = Toast.makeText(getApplicationContext(), "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT);
+            mensaje.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
+            mensaje.show();
+            //finalizar la actividad
             finish();
         };
 
