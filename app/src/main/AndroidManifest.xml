@@ -9,8 +9,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.location.gps" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -20,14 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.RemoverOfertasActivity"></activity>
+        <activity android:name=".ofertas.OfertasActivity"></activity>
+        <activity android:name=".admin.RemoverOfertasActivity" />
         <activity android:name=".admin.RegistrarOfertasActivity" />
         <activity android:name=".admin.MenuAdminActivity" />
         <activity android:name=".admin.LoginAdminActivity" />
         <activity android:name=".repartidor.EntregadasActivity" />
         <activity android:name=".repartidor.Menurepartidorctivity" />
         <activity android:name=".repartidor.LoginActivity" />
-        <activity android:name=".ofertas.OfertasActivity" />
         <activity android:name=".informacion.InformacionActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

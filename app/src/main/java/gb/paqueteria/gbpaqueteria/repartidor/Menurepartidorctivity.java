@@ -14,10 +14,6 @@ import com.hitomi.cmlibrary.OnMenuSelectedListener;
 import com.hitomi.cmlibrary.OnMenuStatusChangeListener;
 
 import gb.paqueteria.gbpaqueteria.R;
-import gb.paqueteria.gbpaqueteria.cliente.RegistroActivity;
-import gb.paqueteria.gbpaqueteria.informacion.InformacionActivity;
-import gb.paqueteria.gbpaqueteria.menu.MainActivity;
-import gb.paqueteria.gbpaqueteria.ofertas.OfertasActivity;
 
 public class Menurepartidorctivity extends AppCompatActivity {
     CircleMenu circleMenu;

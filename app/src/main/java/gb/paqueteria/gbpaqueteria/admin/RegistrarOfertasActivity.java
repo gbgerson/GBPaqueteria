@@ -9,6 +9,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.webkit.*;
+import android.widget.*;
+
+import com.google.android.gms.tasks.*;
+import com.google.firebase.database.*;
+import com.google.firebase.storage.*;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -20,8 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import gb.paqueteria.gbpaqueteria.R;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -78,11 +86,9 @@ public class RegistrarOfertasActivity extends AppCompatActivity {
         btnCarga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mUploadTask!= null && mUploadTask.isInProgress())
-                {
+                if (mUploadTask != null && mUploadTask.isInProgress()) {
                     Toast.makeText(RegistrarOfertasActivity.this, "Carga en Progreso", Toast.LENGTH_SHORT).show();
-                }else
-                {
+                } else {
                     subirArchivo();
                 }
             }
@@ -90,6 +96,7 @@ public class RegistrarOfertasActivity extends AppCompatActivity {
 
 
     }
+
     // MEtodo para anbrir el gestor de archivos de android
     private void abriArchivos() {
         Intent intent = new Intent();
@@ -97,47 +104,49 @@ public class RegistrarOfertasActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, RECOGER_SOLICITUD_IMAGEN);
     }
+
     // Recuperar la url de la imagen y cargarla al imagenview en android
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RECOGER_SOLICITUD_IMAGEN && resultCode == RESULT_OK
-                && data != null && data.getData() != null)
-        {
+        if (requestCode == RECOGER_SOLICITUD_IMAGEN && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             mImagenRuta = data.getData();
             Picasso.with(this).load(mImagenRuta).into(imageView);
 
         }
     }
-    private String obtenerDireccionDelArchivo(Uri uri)
-    {
+
+    private String obtenerDireccionDelArchivo(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return  mime.getExtensionFromMimeType(contentResolver.getType(uri));
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
     // Metodo para subir los datos a firebase
-    private void subirArchivo()
-    {
-        if(mImagenRuta != null)
-        {
-            StorageReference fileReference = storageReference.child(System.currentTimeMillis()
-                    + "." + obtenerDireccionDelArchivo(mImagenRuta));
+    private void subirArchivo() {
+        if (mImagenRuta != null) {
+        final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
+                + "." + obtenerDireccionDelArchivo(mImagenRuta));
 
-            mUploadTask = fileReference.putFile(mImagenRuta)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mprogressBar.setProgress(0);
-                                }
-                            }, 500);
+        fileReference.putFile(mImagenRuta).continueWithTask(
+                new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return fileReference.getDownloadUrl();
+                    }
+                })
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri downloadUri = task.getResult();
                             int Id = (int) new Date().getTime();
                             String subirId = Integer.toString(Id);
-                            Toast.makeText(RegistrarOfertasActivity.this, "Imagen Cargada con Exito", Toast.LENGTH_LONG).show();
                             String nombre = edtNombreDelArchivo.getText().toString().trim();
                             String descripcion = edtDescription.getText().toString().trim();
                             if(TextUtils.isEmpty(nombre))
@@ -148,42 +157,32 @@ public class RegistrarOfertasActivity extends AppCompatActivity {
                                 Toast.makeText(RegistrarOfertasActivity.this, "Escriba una descripcion de la oferta", Toast.LENGTH_LONG).show();
                             }else
                             {
-                                Subir subir = new Subir(nombre, taskSnapshot.getUploadSessionUri().toString(),descripcion,Id
-                                );
-
-                                databaseReference.child(subirId).setValue(subir);
+                                Subir upload = new Subir(nombre, downloadUri.toString(), descripcion, Id);
+                                databaseReference.child(subirId).setValue(upload);
+                                Toast.makeText(RegistrarOfertasActivity.this, "Subida Correctamente", Toast.LENGTH_LONG).show();
                                 limpiarCampos();
                             }
                         }
-                    })
-                    //Si existirea un errror
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RegistrarOfertasActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                        }
-                    })
-                    //Progreso de la barra del progressbar
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            mprogressBar.setProgress((int) progress);
-                        }
-                    });
-
-        }else {
-            Toast.makeText(this, "No ha seleccionado una imagen", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(RegistrarOfertasActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                //Progreso de la barra del progressbar
+    }else {
+            Toast.makeText(RegistrarOfertasActivity.this, "No se ha seleccionado una imagen: ", Toast.LENGTH_LONG).show();
         }
-
     }
-
     private void limpiarCampos() {
         edtNombreDelArchivo.setText("");
         imageView.invalidate();
         imageView.setImageBitmap(null);
         edtDescription.setText("");
     }
-
 }
+
+
+

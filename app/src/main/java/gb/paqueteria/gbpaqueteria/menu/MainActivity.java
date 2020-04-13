@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.txt_layout);
         circleMenu = (CircleMenu) findViewById(R.id.circle_menu);
-        //preguntamos por la conexion de internet y validamos con un if
-
+        //pre
         getConexionIntenet();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
@@ -126,9 +125,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
-
     private void AlertNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Por favor Encienda la Ubicación del Telefono. ¿Desea activarlo?")
