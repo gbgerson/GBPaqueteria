@@ -3,18 +3,24 @@ package gb.paqueteria.gbpaqueteria.menu;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     AlertDialog alert = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         //pre
         getConexionIntenet();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             AlertNoGps();
         }
 
@@ -55,61 +62,90 @@ public class MainActivity extends AppCompatActivity {
                 .addSubMenu(Color.parseColor("#FF4B32"), R.drawable.informacion)
                 .addSubMenu(Color.parseColor("#8A39FF"), R.drawable.ofertas)
                 .addSubMenu(Color.parseColor("#56F9AF"), R.drawable.admin)
+                .addSubMenu(Color.parseColor("#87F956"), R.drawable.telefono)
                 .setOnMenuSelectedListener(new OnMenuSelectedListener() {
 
                     @Override
                     public void onMenuSelected(int index) {
-                        if (index==0){
+                        if (index == 0) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                 }
-                            },600);
+                            }, 600);
 
                         }
 
-                        if (index==1){
+                        if (index == 1) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(MainActivity.this, RegistroActivity.class);
                                     startActivity(intent);
                                 }
-                            },600);
+                            }, 600);
 
                         }
-                        if (index==2){
+                        if (index == 2) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(MainActivity.this, InformacionActivity.class);
                                     startActivity(intent);
                                 }
-                            },600);
+                            }, 600);
 
                         }
-                        if (index==3){
+                        if (index == 3) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(MainActivity.this, OfertasActivity.class);
                                     startActivity(intent);
                                 }
-                            },600);
+                            }, 600);
 
                         }
-                        if (index==4){
+                        if (index == 4) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(MainActivity.this, LoginAdminActivity.class);
                                     startActivity(intent);
                                 }
+                            }, 600);
+
+                        }
+                        if (index == 5) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+
+                                    int permissionCheck = ContextCompat.checkSelfPermission(
+                                            MainActivity.this, Manifest.permission.CALL_PHONE);
+                                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                                        Toast.makeText(MainActivity.this, "No tiene PErmisos", Toast.LENGTH_SHORT).show();
+                                        Log.i("Mensaje", "No se tiene permiso para realizar llamadas telefónicas.");
+                                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 225);
+                                    } else {
+                                        String number = "40516809";Log.i("Mensaje", "Se tiene permiso!");
+                                        Toast.makeText(MainActivity.this, "Si tiene Permisos", Toast.LENGTH_SHORT).show();
+                                        String s = "tel:" + number;
+                                        Intent intent = new Intent(Intent.ACTION_CALL);
+                                        intent.setData(Uri.parse(s));
+                                        startActivity(intent);
+                                    }
+
+                                }
                             },600);
 
                         }
+
+
+
 
 
                     }
@@ -150,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
             alert.dismiss ();
         }
     }
+
 
     //metodo para preguntar por la conexiona de internet
     private void getConexionIntenet() {
