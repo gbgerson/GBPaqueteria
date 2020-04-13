@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.MenuAdminActivity"></activity>
+        <activity android:name=".admin.RemoverOfertasActivity"></activity>
+        <activity android:name=".admin.RegistrarOfertasActivity" />
+        <activity android:name=".admin.MenuAdminActivity" />
         <activity android:name=".admin.LoginAdminActivity" />
         <activity android:name=".repartidor.EntregadasActivity" />
         <activity android:name=".repartidor.Menurepartidorctivity" />
