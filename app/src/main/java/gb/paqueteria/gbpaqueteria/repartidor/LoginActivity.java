@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.txt_layout);
+        getSupportActionBar().setCustomView(R.layout.txt_titulo);
         //casteamos los editex como el boton
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
