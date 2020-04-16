@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +30,7 @@ public class LoginAdminActivity extends AppCompatActivity {
     // cresmo dos variables para las entradas del correo y contrase;a
     EditText email, password;
     // TextView email1, password1;
+    private ProgressBar progressBarCircle;
 
     // creamos una variable tipo boton que se llama login
     Button login, register;
@@ -44,6 +48,7 @@ public class LoginAdminActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         login= findViewById(R.id.login);
+        progressBarCircle = findViewById(R.id.progress_circle);
         //email1 =(TextView) findViewById(R.id.email1);
         //password1 =(TextView) findViewById(R.id.password1);
 
@@ -54,6 +59,7 @@ public class LoginAdminActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // creamos dos variables que conviertan las entradas a un tostring
                 //trim(() para eliminar espacios al inicio y al final
                 String userE = email.getText().toString().trim();
@@ -75,11 +81,13 @@ public class LoginAdminActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     // si la tarea es diferente de exito pues mandar un mensaje que algo esta
                                     // incorrecto
+                                    Toast.makeText(LoginAdminActivity.this, "Consultado al Servidor", Toast.LENGTH_SHORT).show();
                                     if (!task.isSuccessful()){
 
                                         Toast.makeText(getApplicationContext(),"Correo o Contraseña incorrecta",Toast.LENGTH_SHORT).show();
 
                                     }else {
+
                                         // si sale bien lanzarse de  una actividad hacia otra
                                         Intent intent = new Intent(LoginAdminActivity.this, MenuAdminActivity.class);
                                         startActivity(intent);
@@ -90,14 +98,15 @@ public class LoginAdminActivity extends AppCompatActivity {
                                 }
                             });
                 }
-
-
             }
+
         });
 
 
 
 
     }
+
+
 
 }
