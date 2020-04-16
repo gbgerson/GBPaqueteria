@@ -57,7 +57,7 @@ tools:context=".admin.RegistrarOfertasActivity">
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#020303"
         android:layout_marginStart="210dp"
         android:layout_marginBottom="38dp"
         android:background="@drawable/shape"
@@ -65,7 +65,7 @@ tools:context=".admin.RegistrarOfertasActivity">
 
     <Button
         android:id="@+id/btnEligeImagen"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#020303"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnSubir"

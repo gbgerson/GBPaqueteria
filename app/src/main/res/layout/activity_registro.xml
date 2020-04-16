@@ -131,7 +131,8 @@
         <Button
             android:id="@+id/btnEnviar"
             android:background="@drawable/shape"
-            android:textColor="#CD5C5C"
+            android:textColor="#020303"
+            android:textSize="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"

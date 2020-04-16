@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:background="@drawable/shape"
-        android:textColor="#CD5C5C"
+        android:textColor="#020303"
         android:textSize="20dp"
         android:text="Iniciar"
         />
