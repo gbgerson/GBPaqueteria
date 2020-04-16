@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     LocationListener locationListener;
     AlertDialog alert = null;
+    AlertDialog alertaInternet = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,9 @@ public class MainActivity extends AppCompatActivity {
         circleMenu = (CircleMenu) findViewById(R.id.circle_menu);
         //pre
         getConexionIntenet();
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AlertNoGps();
-        }
+
+
+
 
         circleMenu.setMainMenu(Color.parseColor("#FA8258"), R.drawable.menu, R.drawable.cancelar)
                 .addSubMenu(Color.parseColor("#258CFF"), R.drawable.repartir)
@@ -127,8 +127,7 @@ public class MainActivity extends AppCompatActivity {
                                     int permissionCheck = ContextCompat.checkSelfPermission(
                                             MainActivity.this, Manifest.permission.CALL_PHONE);
                                     if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                                        Toast.makeText(MainActivity.this, "No tiene PErmisos", Toast.LENGTH_SHORT).show();
-                                        Log.i("Mensaje", "No se tiene permiso para realizar llamadas telefónicas.");
+                                        Toast.makeText(MainActivity.this, "No Tiene Permisos para realizar LLamadas Telefonicas", Toast.LENGTH_SHORT).show();
                                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 225);
                                     } else {
                                         String number = "40516809";Log.i("Mensaje", "Se tiene permiso!");
@@ -165,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Por favor Encienda la Ubicación del Telefono. ¿Desea activarlo?")
                 .setCancelable(false)
+                .setIcon(R.drawable.gps)
+                .setTitle("GPS")
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -194,13 +195,32 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         //sino existiera la conexion a internet cerramos la aplicacion
         if (networkInfo == null ) {
-            //Toast.makeText(MainActivity.this, "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT).show();
-            Toast mensaje = Toast.makeText(getApplicationContext(), "El Dispositivo no tiene Conexion a Internet", Toast.LENGTH_SHORT);
-            mensaje.setGravity(Gravity.CENTER|Gravity.LEFT,0,0);
-            mensaje.show();
-            //finalizar la actividad
-            finish();
-        };
+
+            final AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+            alerta.setMessage("Su Telefono no cuenta con Conexión a Internet")
+                    .setCancelable(false)
+                    .setTitle("Error de red! :)")
+                    .setIcon(R.drawable.conexion)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            finish();
+                        }
+                    });
+            alert = alerta.create();
+            alert.show();
+        }else{
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        AlertNoGps();
+                    }
+                }
+            }, 10);
+
+        }
+
 
     }
 }

@@ -3,4 +3,14 @@
     <color name="colorPrimary">#A52A2A</color>
     <color name="colorPrimaryDark">#A52A2A</color>
     <color name="colorAccent">#000000</color>
+    <color name="naranjauno">#ff7f27</color>
+    <color name="naranjados">#ff7f27</color>
+    <color name="rojazo">#D81B60</color>
+    <color name="amarillo">#ffcc00</color>
+    <color name="verde">#26ca69</color>
+    <color name="celeste">#03a9f5</color>
+    <color name="naranja">#ff9700</color>
+    <color name="morado">#cc33cc</color>
+    <color name="rojo">#f44236</color>
+    <color name="titulos">#0E2B52</color>
 </resources>
